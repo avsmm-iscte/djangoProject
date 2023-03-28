@@ -1,3 +1,8 @@
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'votacao/css/mystyle.css' %}">
+    <img src="{% static 'votacao/images/mypageimage.jpg' %}">
+</head>
 {% if latest_question_list %}
 <ul>
  {% for questao in latest_question_list %}
