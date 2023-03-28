@@ -1,0 +1,18 @@
+a)
+In[1]: Questao.objects.all()
+Out[2]: <QuerySet [<Questao: vamos fzr uma festa de final de ano?>, <Questao: Gostas de programar para a Internet?>, <Qual é o melhor prato tradicional portugues?>]>
+
+b)
+In[3]: f = Questao.objects.filter(questao_texto__startswith= "Gostas de programar")
+In[4]: f.first()
+Out[5]: 'Gostas de programar para a Internet?'
+In[6]: f.first().opcao_set.all()
+Out[7]: <QuerySet [<Opcao: Adoro>, <Opcao: Gosto>, <Opcao: Mais ou menos>, <Opcao: Nem por isso>, <Opcao: Detesto>]>
+
+c)
+In[8]: Questao.objects.filter(questao_texto__startswith= "Gostas de programar").first().opcao_set.all().filter(votos__gte=2)
+Out[9]:  <QuerySet [<Opcao: Gosto>, <Opcao: Mais ou menos>, <Opcao: Nem por isso>]>
+
+d)
+In[10]: Questao.objects.filter(pub_data__year__gte=year)
+Out[11]: <QuerySet [<Questao: vamos fzr uma festa de final de ano?>, <Questao: Gostas de programar para a Internet?>, <Qual é o melhor prato tradicional portugues?>]>

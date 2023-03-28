@@ -1,0 +1,11 @@
+<h1> Criar Nova Questao</h1>
+<form action="{% url 'votacao:creator' %}" method="post">
+    {% csrf_token %}
+    <label for="texto">Texto da nova questao: </label>
+    <input id="texto" type="text" name="texto">
+    <br/>
+    <br/>
+    <input type="submit" value="Gerar nova questao">
+</form>
+
+<a href="{% url 'votacao:index' %}">Voltar ao index</a>

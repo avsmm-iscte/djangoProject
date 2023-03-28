@@ -1,0 +1,32 @@
+<h1>{{ questao.questao_texto }}</h1>
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form action="{% url 'votacao:voto' questao.id %}"
+      method="post">
+    {% csrf_token %}
+    {% for opcao in questao.opcao_set.all %}
+        <input type="radio" name="opcao"
+               id="opcao{{ forloop.counter }}"
+               value="{{ opcao.id }}"/>
+        <label for="opcao{{ forloop.counter }}">
+            {{ opcao.opcao_texto }}
+        </label>
+        <br/>
+    {% endfor %}
+    {% if request.user.is_superuser %}
+    <input type="radio" id="eliminar" name="eliminaropcao" value="1">
+    <label for="eliminar">Eliminar</label>
+    {% endif %}
+    <br/>
+    <input type="submit" value="Voto"/>
+    Nota: para eliminar uma opção, escolha a opçao e clique em eliminar e dps vote
+
+</form>
+{% if request.user.is_superuser %}
+<p><a href="{% url 'votacao:criaropcao' questao.id %}"> Criar nova Opção </a></p>
+    <br/>
+{% endif %}
+
+<a href="{% url 'votacao:index' %}">Voltar ao index</a>
+

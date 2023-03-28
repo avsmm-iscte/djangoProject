@@ -1,0 +1,16 @@
+<h1> Registar </h1>
+
+<h2>
+    <form action="{% url 'votacao:registo' %}" method="post">
+        {% csrf_token %}
+        <p>
+            Username:  <input type="text" name="nome"/> <br/>
+            E-mail:  <input type="email" name="mail"/> <br/>
+            Password:  <input type="Password" name="word"/> <br/>
+            Curso:  <input type="text" name="curso"/> <br/>
+        </p>
+        <input type="submit" value="Registar"/>
+    </form>
+</h2>
+
+<a href="{% url 'votacao:index' %}">Voltar ao index</a>

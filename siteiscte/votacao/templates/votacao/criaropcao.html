@@ -1,0 +1,11 @@
+<h1> Criar Nova Opção</h1>
+<form action="{% url 'votacao:criaropcao' questao_id %}" method="post">
+    {% csrf_token %}
+    <label for="novaopcao">Texto da nova opcao: </label>
+    <input id="novaopcao" type="text" name="novaopcao">
+    <br/>
+    <br/>
+    <input type="submit" value="Gerar nova opção">
+</form>
+
+<a href="{% url 'votacao:index' %}">Voltar ao index</a>

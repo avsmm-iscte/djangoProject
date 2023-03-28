@@ -1,0 +1,14 @@
+<h1> Login </h1>
+<h2>
+    <form action="{% url 'votacao:loginpage' %}" method="post">
+        {% csrf_token %}
+        <p>
+            Username:  <input type="text" name="nome"/>
+            <br/>
+            Password:  <input type="Password" name="word"/>
+        </p>
+        <input type="submit" value="Entrar"/>
+    </form>
+</h2>
+
+<a href="{% url 'votacao:index' %}">Voltar ao index</a>

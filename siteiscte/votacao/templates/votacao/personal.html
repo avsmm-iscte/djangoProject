@@ -1,0 +1,14 @@
+<h1>
+    <strong> Informação pessoal </strong>
+</h1>
+
+<p>
+    Nome: {{ request.user.username }} <br>
+    Mail: {{ request.user.email }} <br>
+    {% if request.user.aluno %}
+    Número de votos: {{ request.user.aluno.nr_votos}} <br>
+    Curso: {{ request.user.aluno.curso}} <br>
+    {% endif %}
+</p>
+
+<a href="{% url 'votacao:index' %}">Voltar ao index</a>
