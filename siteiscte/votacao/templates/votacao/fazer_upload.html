@@ -1,0 +1,19 @@
+{% load static %}
+ <form method="post" enctype="multipart/form-data" action="{% url 'votacao:fazer_upload' %}">
+     {% csrf_token %}
+      <input type="file" name="myfile">
+      <input type="submit" value="Upload">
+ </form>
+{% if uploaded_file_url %}
+ <p>
+     Feito o upload para:
+     <a href="{{ uploaded_file_url }}">
+        {{ uploaded_file_url }}
+     </a>
+</p>
+ {% endif %}
+ <p>
+    <a href="{% url 'votacao:index' %}">
+        Voltar ao início
+    </a>
+ </p>

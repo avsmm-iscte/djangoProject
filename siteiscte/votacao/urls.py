@@ -27,5 +27,7 @@ urlpatterns = [
 
     path('eliminarquestao', views.eliminarquestao, name='eliminarquestao'),
 
-    path('eliminar', views.eliminar, name='eliminar')
+    path('eliminar', views.eliminar, name='eliminar'),
+
+    path('fazer_upload', views.fazer_upload, name='fazer_upload')
 ]
