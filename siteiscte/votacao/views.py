@@ -111,7 +111,7 @@ def registo(request):
         if nome and mail and word and curso:
             user = User.objects.create_user(nome, mail, word)
             user.save()
-            aluno = Aluno.objects.create(user=user, curso=curso)
+            aluno = Aluno.objects.create(user=user, curso=curso, imagem="images/transferir.png")
             aluno.save()
             return HttpResponseRedirect(reverse('votacao:loginpage'))
         else:
@@ -177,6 +177,7 @@ def fazer_upload(request):
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
+        request.user.aluno.add_image("/votacao/static/votacao/images/" + filename)
         uploaded_file_url = fs.url(filename)
         return render(request, 'votacao/fazer_upload.html',
                       {'uploaded_file_url': uploaded_file_url})

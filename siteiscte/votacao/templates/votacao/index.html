@@ -1,10 +1,27 @@
 <head>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'votacao/css/mystyle.css' %}">
-    <img src="{% static 'votacao/images/mypageimage.jpg' %}">
 </head>
+
+<header>
+    {% load static %}
+    <div class="banner">
+      <img src="https://conhecimentoinovacao.iscte-iul.pt/wp-content/uploads/2021/02/rgb_iscte_pt_horizontal_positive.png" alt="Banner Image">
+    </div>
+    <div class="username">
+      <h1>Username</h1>
+    </div>
+  </header>
+<div>
+    {% if request.user.aluno.image %}
+        <img src="{{request.user.aluno.image }}" height="50">
+    {% else %}
+        <img src="{% static 'votacao/images/user.png' %}" height="50">
+
+    {% endif %}
+</div>
 {% if latest_question_list %}
-<ul>
+<ul class="question-list">
  {% for questao in latest_question_list %}
      <li>
          <a href="{% url 'votacao:detalhe' questao.id %}">

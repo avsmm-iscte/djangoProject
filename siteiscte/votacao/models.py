@@ -25,6 +25,7 @@ class Aluno(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     curso = models.CharField(max_length=100)
     nr_votos = models.IntegerField(default=0)
+    image = models.TextField()
 
     def __str__(self):
         return self.user.username
@@ -32,4 +33,7 @@ class Aluno(models.Model):
     def add_voto(self):
         self.nr_votos += 1
         self.save()
-# Create your models here.
+
+    def add_image(self, image):
+        self.image = image
+        self.save()
