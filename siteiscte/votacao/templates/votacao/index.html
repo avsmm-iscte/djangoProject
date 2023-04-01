@@ -31,16 +31,14 @@
  {% endfor %}
 
 </ul>
-    {% if request.user.is_superuser %}
-         <a href="{% url 'votacao:creator' %}">
-            Criar Nova Questao
-        </a>
-        <br/>
-        <a href="{% url 'votacao:eliminarquestao' %}">
-            Eliminar Questão
-        </a>
-    {% endif %}
-        <br/>
+     <a href="{% url 'votacao:creator' %}">
+        Criar Nova Questao
+    </a>
+    <br/>
+    <a href="{% url 'votacao:eliminarquestao' %}">
+        Eliminar Questão
+    </a>
+    <br/>
     {% if not request.user.is_authenticated %}
         <div style="position:fixed; top:10px; right:10px">
             <a href="{% url 'votacao:registo' %}">

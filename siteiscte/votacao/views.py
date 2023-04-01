@@ -63,7 +63,7 @@ def resultados(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
     return render(request, 'votacao/resultados.html', {'questao': questao})
 
-
+@permission_required('auth.superuser')
 def creator(request):
     if request.method == 'POST':
         try:
@@ -148,7 +148,7 @@ def logoutview(request):
 def personal(request):
     return render(request, 'votacao/personal.html')
 
-
+@permission_required('auth.superuser')
 def eliminarquestao(request):
     questoes = Questao.objects.all()
     return render(request, 'votacao/eliminarquestao.html', {'questoes': questoes})
