@@ -178,6 +178,7 @@ def fazer_upload(request):
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         request.user.aluno.add_image("/votacao/static/votacao/images/" + filename)
+        print(request.user.aluno.image)
         uploaded_file_url = fs.url(filename)
         return render(request, 'votacao/fazer_upload.html',
                       {'uploaded_file_url': uploaded_file_url})

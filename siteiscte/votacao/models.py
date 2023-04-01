@@ -37,3 +37,6 @@ class Aluno(models.Model):
     def add_image(self, image):
         self.image = image
         self.save()
+
+    def remove_image(self):
+        self.delete()
