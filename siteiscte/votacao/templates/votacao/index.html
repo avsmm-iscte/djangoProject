@@ -35,19 +35,19 @@
                 Informação Pessoal
             </a>
         </div>
+        <div>
+            {% if request.user.aluno.image %}
+                <img src="{{request.user.aluno.image }}" height="50">
+            {% else %}
+                <img src="{% static 'votacao/images/user.png' %}" height="50">
+
+            {% endif %}
+        </div>
     {% endif %}
     </div>
     {% endblock %}
 </header>
 {% block conteudo %}
-<div>
-    {% if request.user.aluno.image %}
-        <img src="{{request.user.aluno.image }}" height="50">
-    {% else %}
-        <img src="{% static 'votacao/images/user.png' %}" height="50">
-
-    {% endif %}
-</div>
 {% if latest_question_list %}
 <ul class="question-list">
  {% for questao in latest_question_list %}

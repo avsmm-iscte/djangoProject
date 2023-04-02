@@ -111,7 +111,7 @@ def registo(request):
         if nome and mail and word and curso:
             user = User.objects.create_user(nome, mail, word)
             user.save()
-            aluno = Aluno.objects.create(user=user, curso=curso, imagem="images/transferir.png")
+            aluno = Aluno.objects.create(user=user, curso=curso, image="images/user.png")
             aluno.save()
             return HttpResponseRedirect(reverse('votacao:loginpage'))
         else:
