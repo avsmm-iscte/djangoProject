@@ -1,3 +1,6 @@
+{% extends "votacao/index.html" %}
+{% block logina %} {% endblock %}
+{% block conteudo %}
 <h1>
     <strong> Informação pessoal </strong>
 </h1>
@@ -13,3 +16,4 @@
 
 <a href="{% url 'votacao:fazer_upload' %}">Fazer upload de foto</a>
 <a href="{% url 'votacao:index' %}">Voltar ao index</a>
+{% endblock %}

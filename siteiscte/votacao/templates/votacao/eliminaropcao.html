@@ -1,3 +1,6 @@
+{% extends "votacao/index.html" %}
+
+{% block conteudo %}
 <h1> Eliminar Opção </h1>
 
 <form action="{% url 'votacao:eliminaropcao' questao.id %}"
@@ -14,3 +17,4 @@
     {% endfor %}
     <input type="submit" value="Eliminar"/>
 </form>
+{% endblock %}

@@ -1,3 +1,6 @@
+{% extends "votacao/index.html" %}
+{% block logina %} {% endblock %}
+{% block conteudo %}
 <h1> Registar </h1>
 
 <h2>
@@ -14,3 +17,4 @@
 </h2>
 
 <a href="{% url 'votacao:index' %}">Voltar ao index</a>
+{% endblock %}

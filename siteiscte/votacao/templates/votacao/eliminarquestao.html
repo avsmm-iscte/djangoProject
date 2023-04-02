@@ -1,3 +1,6 @@
+{% extends "votacao/index.html" %}
+
+{% block conteudo %}
 <h1>Escolha a questão a eliminar</h1>
 
 {% if error_message %}
@@ -16,3 +19,4 @@
 </form>
 
 <a href="{% url 'votacao:index' %}">Voltar ao index</a>
+{% endblock %}

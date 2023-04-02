@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .models import Questao, Opcao, Aluno
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -63,7 +63,7 @@ def resultados(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
     return render(request, 'votacao/resultados.html', {'questao': questao})
 
-@permission_required('auth.superuser')
+@permission_required('auth.superuser', login_url=reverse_lazy('votacao:index'))
 def creator(request):
     if request.method == 'POST':
         try:
@@ -148,7 +148,7 @@ def logoutview(request):
 def personal(request):
     return render(request, 'votacao/personal.html')
 
-@permission_required('auth.superuser')
+@permission_required('auth.superuser', login_url=reverse_lazy('votacao:index'))
 def eliminarquestao(request):
     questoes = Questao.objects.all()
     return render(request, 'votacao/eliminarquestao.html', {'questoes': questoes})

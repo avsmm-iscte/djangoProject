@@ -8,10 +8,38 @@
     <div class="banner">
       <img src="https://conhecimentoinovacao.iscte-iul.pt/wp-content/uploads/2021/02/rgb_iscte_pt_horizontal_positive.png" alt="Banner Image">
     </div>
+    {% block logina %}
     <div class="username">
-      <h1>Username</h1>
+      {% if not request.user.is_authenticated %}
+        <div style="position:fixed; top:10px; right:10px">
+            <a href="{% url 'votacao:registo' %}">
+                Registar
+            </a>
+            <br/>
+            <a href="{% url 'votacao:loginpage' %}">
+                Login
+            </a>
+        </div>
+    {% else %}
+        <div style="position:fixed; top:10px; right:10px">
+            <p style="display:inline-block"> {{ user.get_username }}</p>
+            {% if request.user.aluno %}
+                <p style="display:inline-block"> | Nr de votos: {{ user.aluno.nr_votos }} | </p>
+             {% endif %}
+            <br/>
+            <a href="{% url 'votacao:logoutview' %}">
+                Logout
+            </a>
+             <br/>
+             <a href="{% url 'votacao:personal' %}">
+                Informação Pessoal
+            </a>
+        </div>
+    {% endif %}
     </div>
-  </header>
+    {% endblock %}
+</header>
+{% block conteudo %}
 <div>
     {% if request.user.aluno.image %}
         <img src="{{request.user.aluno.image }}" height="50">
@@ -39,35 +67,10 @@
         Eliminar Questão
     </a>
     <br/>
-    {% if not request.user.is_authenticated %}
-        <div style="position:fixed; top:10px; right:10px">
-            <a href="{% url 'votacao:registo' %}">
-                Registar
-            </a>
-            <br/>
-            <a href="{% url 'votacao:loginpage' %}">
-                Login
-            </a>
-        </div>
-    {% else %}
-        <div style="position:fixed; top:10px; right:10px">
-            <p style="display:inline-block"> {{ user.get_username }}</p>
-            {% if request.user.aluno %}
-                <p style="display:inline-block"> | Nr de votos: {{ user.aluno.nr_votos }} | </p>
-             {% endif %}
-            <br/>
-            <a href="{% url 'votacao:logoutview' %}">
-                Logout
-            </a>
-             <br/>
-             <a href="{% url 'votacao:personal' %}">
-                Informação Pessoal
-            </a>
-        </div>
-    {% endif %}
 {% else %}
     <p>Nao ha questoes disponiveis.</p>
 {% endif %}
+{% endblock %}
 
 
 

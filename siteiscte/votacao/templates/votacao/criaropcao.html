@@ -1,3 +1,6 @@
+{% extends "votacao/index.html" %}
+
+{% block conteudo %}
 <h1> Criar Nova Opção</h1>
 <form action="{% url 'votacao:criaropcao' questao_id %}" method="post">
     {% csrf_token %}
@@ -9,3 +12,4 @@
 </form>
 
 <a href="{% url 'votacao:index' %}">Voltar ao index</a>
+{% endblock %}
