@@ -1,6 +1,28 @@
 <head>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'votacao/css/mystyle.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#img1").dblclick(function(){
+                 $("#img1").hide();
+            });
+
+            $("#p1").click(function(){
+                 $("#img1").show();
+            })
+
+            $("#b1").click(function(){
+                 $("#li1").toggle();
+                 if ($("#li1").is(":visible")) {
+                     $(this).text("Esconder lista de Questões");
+                 } else {
+                     $(this).text("Mostrar lista de Questões");
+                 }
+            });
+
+        });
+    </script>
 </head>
 
 <header>
@@ -23,11 +45,11 @@
       {% else %}
         <div style="position:fixed; top:10px; right:10px">
             {% if request.user.aluno.image == '' %}
-                <img src="{{request.user.aluno.image }}" height="50">
+                <img src="{{request.user.aluno.image }}" id="img1" height="50">
             {% else %}
-                <img src="{% static 'votacao/images/user.png' %}" height="50">
+                <img src="{% static 'votacao/images/user.png' %}" id="img1" height="50">
             {% endif %}
-            <p style="display:inline-block"> {{ user.get_username }}</p>
+            <p style="display:inline-block" id="p1"> {{ user.get_username }}</p>
             {% if request.user.aluno %}
                 <p style="display:inline-block"> | Nr de votos: {{ user.aluno.nr_votos }} | </p>
              {% endif %}
@@ -46,17 +68,18 @@
 </header>
 {% block conteudo %}
 {% if latest_question_list %}
-<ul class="question-list">
- {% for questao in latest_question_list %}
-     <li>
-         <a href="{% url 'votacao:detalhe' questao.id %}">
-             {{ questao.questao_texto }}
-         </a>
-    </li>
- {% endfor %}
-
+<ul class="question-list" id="li1">
+     {% for questao in latest_question_list %}
+         <li >
+             <a href="{% url 'votacao:detalhe' questao.id %}">
+                 {{ questao.questao_texto }}
+             </a>
+        </li>
+     {% endfor %}
 </ul>
-     <a href="{% url 'votacao:creator' %}">
+    <button id="b1">Esconder lista de Questões</button>
+    <br/>
+    <a href="{% url 'votacao:creator' %}">
         Criar Nova Questao
     </a>
     <br/>
