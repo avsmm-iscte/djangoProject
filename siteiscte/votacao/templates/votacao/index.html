@@ -20,8 +20,13 @@
                 Login
             </a>
         </div>
-    {% else %}
+      {% else %}
         <div style="position:fixed; top:10px; right:10px">
+            {% if request.user.aluno.image == '' %}
+                <img src="{{request.user.aluno.image }}" height="50">
+            {% else %}
+                <img src="{% static 'votacao/images/user.png' %}" height="50">
+            {% endif %}
             <p style="display:inline-block"> {{ user.get_username }}</p>
             {% if request.user.aluno %}
                 <p style="display:inline-block"> | Nr de votos: {{ user.aluno.nr_votos }} | </p>
@@ -35,14 +40,7 @@
                 Informação Pessoal
             </a>
         </div>
-        <div>
-            {% if request.user.aluno.image == '' %}
-                <img src="{{request.user.aluno.image }}" height="50">
-            {% else %}
-                <img src="{% static 'votacao/images/user.png' %}" height="50">
-            {% endif %}
-        </div>
-    {% endif %}
+     {% endif %}
     </div>
     {% endblock %}
 </header>

@@ -171,7 +171,6 @@ def eliminar(request):
         # voltar para a página web anterior.
     return HttpResponseRedirect(reverse('votacao:index'))
 
-#ola o gui é gay
 def fazer_upload(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']

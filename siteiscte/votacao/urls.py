@@ -31,6 +31,4 @@ urlpatterns = [
 
     path('fazer_upload', views.fazer_upload, name='fazer_upload'),
 
-    path('', views.index, name='index'),
-
 ]
