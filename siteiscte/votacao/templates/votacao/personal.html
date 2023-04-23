@@ -11,16 +11,17 @@
     {% else %}
         <img src="{% static 'votacao/images/user.png' %}" id="img2" height="50">
     {% endif %}
+    <p id="p2">
+        Nome: {{ request.user.username }} <br>
+        Mail: {{ request.user.email }} <br>
+        {% if request.user.aluno %}
+        Número de votos: {{ request.user.aluno.nr_votos}} <br>
+        Curso: {{ request.user.aluno.curso}} <br>
+        {% endif %}
+    </p>
 </div>
-<p id="p2">
-    Nome: {{ request.user.username }} <br>
-    Mail: {{ request.user.email }} <br>
-    {% if request.user.aluno %}
-    Número de votos: {{ request.user.aluno.nr_votos}} <br>
-    Curso: {{ request.user.aluno.curso}} <br>
-    {% endif %}
-</p>
 
-<a href="{% url 'votacao:fazer_upload' %}">Fazer upload de foto</a>
+
+<a href="{% url 'votacao:fazer_upload' %}">Fazer upload de foto</a> <br>
 <a href="{% url 'votacao:index' %}">Voltar ao index</a>
 {% endblock %}
