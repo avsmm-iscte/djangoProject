@@ -4,8 +4,15 @@
 <h1>
     <strong> Informação pessoal </strong>
 </h1>
-
-<p>
+<div id="d1">
+    {% load static %}
+    {% if request.user.aluno.image == '' %}
+        <img src="{{request.user.aluno.image }}" id="img2" height="50">
+    {% else %}
+        <img src="{% static 'votacao/images/user.png' %}" id="img2" height="50">
+    {% endif %}
+</div>
+<p id="p2">
     Nome: {{ request.user.username }} <br>
     Mail: {{ request.user.email }} <br>
     {% if request.user.aluno %}
