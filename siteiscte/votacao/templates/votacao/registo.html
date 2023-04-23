@@ -1,6 +1,7 @@
 {% extends "votacao/index.html" %}
 {% block logina %} {% endblock %}
 {% block conteudo %}
+
 <h1> Registar </h1>
 
 <h2>
@@ -11,8 +12,35 @@
             E-mail:  <input type="email" name="mail"/> <br/>
             Password:  <input type="Password" name="word"/> <br/>
             Curso:  <input type="text" name="curso"/> <br/>
+            Comentário: <input style="width:400px" type="text" id="comment" placeholder="Note que o comentário é necessário para progredir."> <br/>
+            <button id="commentButton">Validar comentário</button>
+            <div id="info"></div>
+            <input id="registerButton" type="submit" value="Registar"/>
         </p>
-        <input type="submit" value="Registar"/>
+        <script>
+        $(document).ready(function() {
+          const words = ["Abécula", "Abentesma", "Alimária", "Andrajoso", "Barregã", "Biltre", "Cacóstomo", "Cuarra", "Estólido", "Estroso", "Estultilóquio", "Nefelibata", "Néscio", "Pechenga", "Sevandija", "Somítico", "Tatibitate", "Xexé", "Cheché", "Xexelento"];
+          $("#commentButton").click(function(event) {
+            event.preventDefault();
+            const comentario = $("#comment").val();
+            let isValid = true;
+            for (const word of words) {
+              if (comentario.includes(word)) {
+                isValid = false;
+                break;
+              }
+            }
+            if (!isValid) {
+              $("#registerButton").prop("disabled", true);
+              $("#info").html("Comentário inválido! Não use palavras proibidas.");
+              $("#comment").val("");
+            } else {
+              $("#registerButton").prop("disabled", false);
+              $("#info").html("Comentário válido.");
+            }
+          });
+        });
+        </script>
     </form>
 </h2>
 
