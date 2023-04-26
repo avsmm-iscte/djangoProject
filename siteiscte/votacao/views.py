@@ -9,6 +9,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+from .serializers import * #(2)
+from .models import Questao, Opcao
 
 
 def index(request):
@@ -182,3 +187,62 @@ def fazer_upload(request):
         return render(request, 'votacao/fazer_upload.html',
                       {'uploaded_file_url': uploaded_file_url})
     return render(request, 'votacao/fazer_upload.html')
+
+
+
+@api_view(['GET', 'POST']) #(3)
+def questoes_lista(request):
+ if request.method == 'GET': #(4)
+    questoes = Questao.objects.all()
+    serializerQ = QuestaoSerializer(questoes, context={'request': request}, many=True)
+    return Response(serializerQ.data)
+ elif request.method == 'POST': #(4)
+    serializer = QuestaoSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+@api_view(['PUT', 'DELETE']) #(3) e (5)
+def questoes_edita(request, pk):
+ try:
+    questao = Questao.objects.get(pk=pk)
+ except Questao.DoesNotExist:
+    return Response(status=status.HTTP_404_NOT_FOUND)
+ if request.method == 'PUT':
+    serializer = QuestaoSerializer(questao,data=request.data,context={'request': request})
+    if serializer.is_valid():
+          serializer.save()
+          return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+ elif request.method == 'DELETE':
+    questao.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+@api_view(['GET', 'POST'])
+def opcoes_lista(request):
+    if request.method == 'GET':
+        opcoes = Opcao.objects.all()
+        serializerO = OpcaoSerializer(opcoes, context={'request':request}, many=True)
+        return Response(serializerO.data)
+    elif request.method == 'POST':
+        serializer = OpcaoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['PUT', 'DELETE'])
+def opcoes_edita(request, pk):
+ try:
+    opcao = Opcao.objects.get(pk=pk)
+ except Opcao.DoesNotExist:
+    return Response(status=status.HTTP_404_NOT_FOUND)
+ if request.method == 'PUT':
+    serializer = OpcaoSerializer(opcao, data=request.data,context={'request': request})
+    if serializer.is_valid():
+        opcao.votos = opcao.votos + 1
+        opcao.save()
+        #serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ elif request.method == 'DELETE':
+     opcao.delete()
+     return Response(status=status.HTTP_204_NO_CONTENT)
