@@ -32,8 +32,11 @@ urlpatterns = [
     path('fazer_upload', views.fazer_upload, name='fazer_upload'),
 
     path('api/questoes/', views.questoes_lista),
+
     path('api/questoes/<int:pk>', views.questoes_edita),
+
     path('api/opcoes/', views.opcoes_lista),
+
     path('api/opcoes/<int:pk>', views.opcoes_edita),
 
 ]
